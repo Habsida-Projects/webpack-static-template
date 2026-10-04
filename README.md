@@ -1,11 +1,41 @@
 # Webpack Static Site Starter Kit
 
-## Project Requirements
+A starter for static sites: HTML, SCSS and JavaScript, bundled with webpack 5.
 
-- [Node 20.17.0](https://nodejs.org/en/download/package-manager)
-- [NVM for macOS](https://tecadmin.net/install-nvm-macos-with-homebrew/)
-- [NVM for Windows](https://github.com/coreybutler/nvm-windows/releases) (If using Windows, installation must be done as an administrator)
-- [Yarn](https://yarnpkg.com/)
+New to webpack? Read [how-to-start.md](how-to-start.md) first.
+
+## Requirements
+
+- **Node.js 24.11 or newer** (npm comes with it)
+- Git
+
+### Installing Node.js
+
+**Windows** — choose one:
+
+- Download the **LTS** installer from [nodejs.org](https://nodejs.org/en/download) and run it.
+- Or, in PowerShell: `winget install OpenJS.NodeJS.LTS`
+- Or, if you use [nvm-windows](https://github.com/coreybutler/nvm-windows/releases), give it the exact version (nvm-windows does not read `.nvmrc`):
+
+  ```powershell
+  nvm install 24.15.0
+  nvm use 24.15.0
+  ```
+
+  Pick the latest 24.x from [nodejs.org](https://nodejs.org/en/about/previous-releases).
+
+**macOS / Linux** — with [nvm](https://github.com/nvm-sh/nvm), run in the project folder (the version is taken from `.nvmrc`):
+
+```bash
+nvm install
+nvm use
+```
+
+Close and reopen the terminal (and VS Code) after installing, then check the version. It must be **24.11.0 or newer**:
+
+```bash
+node -v
+```
 
 ---
 
@@ -13,112 +43,97 @@
 
 1. Clone the repository:
 
-```bash
-git clone https://github.com/Habsida-Projects/webpack-static-template
-```
+   ```bash
+   git clone https://github.com/Habsida-Projects/webpack-static-template
+   ```
 
-2. Open terminal in webpack-static-template directory
+   **Windows:** keep the project in a short path, such as `C:\dev\my-project`. In very deeply nested folders, paths inside `node_modules` can exceed Windows' 260-character limit, and the build fails with confusing errors like `Package import specifier "#..." is not defined`.
 
-3. Delete the `.git` folder manually or with command:
+2. Open a terminal in the `webpack-static-template` folder.
 
-```bash
-rm -rf .git
-```
+3. Delete the `.git` folder in File Explorer / Finder, or with a command:
 
-The existing .git folder is linked to the repository from which you cloned the project. You’ll need to create a new .git folder that links to your own repository.
+   ```bash
+   # PowerShell
+   Remove-Item -Recurse -Force .git
+
+   # macOS / Linux / Git Bash
+   rm -rf .git
+   ```
+
+   The old `.git` folder is linked to the template repository. You will create a new one linked to your own repository.
+
+4. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+5. Start the dev server. The site opens at http://localhost:9000 and reloads when you save a file:
+
+   ```bash
+   npm start
+   ```
+
+## Scripts
+
+| Command          | What it does                                          |
+| ---------------- | ----------------------------------------------------- |
+| `npm start`      | Dev server at http://localhost:9000 with live reload  |
+| `npm run build`  | Production build into `dist/` (minified)              |
+| `npm run dev`    | Development build into `dist/` (not minified)         |
+| `npm run watch`  | Development build that rebuilds `dist/` on every save |
+| `npm run deploy` | Build and publish `dist/` to GitHub Pages             |
+| `npm run lint`   | Check JavaScript with ESLint                          |
+| `npm run format` | Format all files with Prettier                        |
 
 ---
 
-## If Creating a New Project on github.com
+## Creating Your Own GitHub Repository
 
-You need to initialize a new Git repository. _If this command fails, it may be because your Git version is outdated, and you will need to update it._
+Create an empty repository on github.com (without a README), then in the project folder:
 
-```properties
+```bash
 git init -b main
+git add .
+git commit -m "initial commit"
 ```
 
-Add all changes and make the initial commit:
+_If `git init -b main` fails, your Git version is outdated; update Git._
 
-```properties
-git add . && git commit -m "initial commit"
-```
+Link it to your repository. Replace _USER_ (your GitHub username) and _REPO_ (your repository name):
 
-Link the local repository to the remote repository; replace *USER* (your GitHub username) and *REPO* (your repository name):
-
-```properties
+```bash
 git remote add origin https://github.com/USER/REPO.git
-```
-
-Verify the connection:
-
-```properties
 git remote -v
-```
-
-Push the changes to the remote repository:
-
-```properties
-git push origin main
+git push -u origin main
 ```
 
 ---
 
-## Checking the Node Version
+## Deploying to GitHub Pages
 
-This should output version 20.17.0:
+Your project must be pushed to GitHub first (see above).
 
-```properties
-node -v
-```
+1. Build and publish:
 
----
+   ```bash
+   npm run deploy
+   ```
 
-## Two Methods for Installing Dependencies
+   This builds the project and pushes the contents of `dist/` to a branch called `gh-pages`.
 
-Install dependencies using NPM:
+2. On github.com open your repository → **Settings** → **Pages**. Under **Build and deployment** choose **Deploy from a branch**, branch **`gh-pages`**, folder **`/ (root)`**, and save.
 
-```properties
-npm install
-```
+3. After a minute the site is available at `https://USER.github.io/REPO/`.
 
-Install dependencies using Yarn:
+Run `npm run deploy` again whenever you want to publish changes.
 
-```properties
-yarn
-```
+Things to know:
 
----
-
-## Two Methods for Running the Application
-
-To start the web server using NPM:
-
-```properties
-npm start
-```
-
-To start the web server using Yarn:
-
-```properties
-yarn start
-```
+- `dist/` is in `.gitignore`. Don't commit it to `main`; it only lives on the `gh-pages` branch.
+- The site lives in a subfolder (`/REPO/`), so **always use relative paths**: `./img/logo.svg`, not `/img/logo.svg`. A path starting with `/` works on localhost but breaks on GitHub Pages.
 
 ---
 
-## Two Methods for Deploying to GitHub Pages
-
-### Your repository must be linked to a GitHub repository. After linking, proceed with the following:
-
-Deploy to GitHub Pages using NPM:
-
-```properties
-npm run deploy
-```
-
-Deploy to GitHub Pages using Yarn:
-
-```properties
-yarn deploy
-```
-
-Read [this article](hhttps://dev.to/anitaparmar26/webpack-5-guide-for-beginners-314c).
+Further reading: [Webpack 5 guide for beginners](https://dev.to/anitaparmar26/webpack-5-guide-for-beginners-314c).
