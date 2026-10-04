@@ -47,6 +47,8 @@ node -v
    git clone https://github.com/Habsida-Projects/webpack-static-template
    ```
 
+   **Windows:** keep the project in a short path, such as `C:\dev\my-project`. In very deeply nested folders, paths inside `node_modules` can exceed Windows' 260-character limit, and the build fails with confusing errors like `Package import specifier "#..." is not defined`.
+
 2. Open a terminal in the `webpack-static-template` folder.
 
 3. Delete the `.git` folder in File Explorer / Finder, or with a command:

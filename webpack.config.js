@@ -110,7 +110,8 @@ module.exports = (env, argv) => {
       open: true, // Open the browser automatically
       compress: true,
       hot: true, // Update styles without reloading the page
-      watchFiles: ['src/**/*'], // Reload the page when html changes
+      static: false, // Everything comes from the webpack build
+      watchFiles: ['src/**/*.html'], // Reload the page when html changes
       client: {
         overlay: true // Show errors and warnings in the browser
       }
