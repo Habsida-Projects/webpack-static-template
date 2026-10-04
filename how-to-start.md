@@ -143,7 +143,33 @@ You can import both `.scss` and plain `.css` files in JS. Many libraries ship pl
    }
    ```
 
-   On wider screens Swiper is not started, so style `.brands__swiper` for that case yourself (for example, as a grid) and hide `.swiper-pagination`.
+4. Style both states. Swiper adds the class `swiper-initialized` when it starts. If the page was loaded on a wide screen, Swiper never starts, so the slides keep Swiper's default flex row and overflow. Lay them out yourself on **`.swiper-wrapper`** (the slides are its children, not children of `.brands__swiper`):
+
+   ```scss
+   // src/scss/blocks/_brands.scss
+   .brands__item {
+     width: 240px; // slide width while Swiper is running
+   }
+
+   // Swiper was not started (the page was loaded on a wide screen)
+   .brands__swiper:not(.swiper-initialized) {
+     .swiper-wrapper {
+       display: grid;
+       grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+       gap: 16px;
+     }
+
+     .brands__item {
+       width: auto;
+     }
+
+     .swiper-pagination {
+       display: none;
+     }
+   }
+   ```
+
+   Use `:not(.swiper-initialized)` instead of a `@media` query: Swiper is started or not once, on page load, so the layout must follow that decision, not the current window width. With a media query, a slider loaded on mobile would turn into a broken grid when the window is widened.
 
 ## Where to Place Images?
 
