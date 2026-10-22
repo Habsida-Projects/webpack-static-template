@@ -57,5 +57,8 @@
     "plugins": {
       "autoprefixer": {}
     }
+  },
+  "allowScripts": {
+    "@parcel/watcher": false
   }
 }
