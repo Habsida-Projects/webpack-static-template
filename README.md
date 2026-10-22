@@ -6,7 +6,7 @@ New to webpack? Read [how-to-start.md](how-to-start.md) first.
 
 ## Requirements
 
-- **Node.js 26** (npm comes with it). Node.js 24.11 or newer also works.
+- **Node.js, the current LTS version** (npm comes with it). The minimum is 24.11.
 - Git
 
 ### Installing Node.js
@@ -22,7 +22,7 @@ New to webpack? Read [how-to-start.md](how-to-start.md) first.
   nvm use 26.12.1
   ```
 
-  Pick the latest 26.x from [nodejs.org](https://nodejs.org/en/about/previous-releases).
+  Pick the latest LTS version from [nodejs.org](https://nodejs.org/en/about/previous-releases).
 
 **macOS / Linux** — with [nvm](https://github.com/nvm-sh/nvm), run in the project folder (the version is taken from `.nvmrc`):
 
